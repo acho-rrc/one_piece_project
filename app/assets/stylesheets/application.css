@@ -1,0 +1,277 @@
+/* app/assets/stylesheets/application.css */
+
+/* =========================
+   Theme (white-only)
+   ========================= */
+:root{
+  --bg: #f6f8fc;            /* soft white canvas */
+  --panel: #ffffff;
+  --ink: #0f172a;
+  --muted: #667085;
+  --brand: #0ea5e9;         /* ocean blue */
+  --brand-2: #3c3c3c;       /* sea green */
+  --accent: #f59e0b;        /* gold */
+  --danger: #ef4444;
+  --ring: rgba(14,165,233,.25);
+  --border: #e7ebf0;
+  --nav-bg: #1f2937;   /* dark slate grey */
+  --nav-ink: #ffffff;  /* white text on dark bar */
+  --nav-ink-dim: rgba(255,255,255,.78);
+  --nav-hover: rgba(255,255,255,.12);
+  --nav-active: rgba(255,255,255,.18);
+
+  /* Neumorphism */
+  --shadow-up:   -8px -8px 18px rgba(255,255,255,.85);
+  --shadow-down:  8px  8px 18px rgba(15,23,42,.06);
+  --inset-up:    inset  6px  6px 12px rgba(15,23,42,.06);
+  --inset-down:  inset -6px -6px 12px rgba(255,255,255,.85);
+
+  /* Sizes / Radius */
+  --btn-width: 120px;
+  --btn-height: 35px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+}
+
+/* =========================
+   Base / Layout
+   ========================= */
+*{ box-sizing:border-box }
+html, body{
+  height:100%;
+  background:
+    radial-gradient(1000px 700px at 20% 8%, rgba(14,165,233,.06), transparent 55%),
+    radial-gradient(900px 600px at 85% 12%, rgba(245,158,11,.05), transparent 60%),
+    var(--bg);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+  line-height:1.5;
+}
+
+.container{
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.panel{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-up), var(--shadow-down);
+  padding: 18px;
+}
+
+.topnav{
+  position: sticky; top: 0; left: 0; right: 0;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 16px;
+  background: var(--nav-bg);          /* 🔥 dark bar */
+  color: var(--nav-ink);
+  z-index: 50;
+  box-shadow: 0 6px 18px rgba(0,0,0,.12); /* soft separation, no border */
+}
+
+.topnav__brand{
+  font-weight: 900; letter-spacing: .3px;
+  color: var(--nav-ink); text-decoration: none;
+}
+
+.topnav__links{ display:flex; gap: 8px; flex-wrap: wrap; }
+
+.topnav__link{
+  display:inline-block; padding: 6px 12px; border-radius: 10px;
+  color: var(--nav-ink-dim); text-decoration: none; font-weight: 700;
+  transition: background .15s ease, color .15s ease, filter .15s ease;
+}
+.topnav__link:hover{ color: var(--nav-ink); background: var(--nav-hover); text-decoration: none; }
+.topnav__link.is-active{ color: var(--nav-ink); background: var(--nav-active); }
+
+
+
+/* =========================
+   Headings
+   ========================= */
+h1,h2,h3{
+  letter-spacing:.2px;
+  margin:0 0 12px 0;
+}
+h1{
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight:800;
+  background: linear-gradient(90deg, #1f2937, #64748b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================
+   Links
+   ========================= */
+a{ color: var(--brand); font-weight:600; text-decoration:none }
+a:hover{ text-decoration: underline }
+
+/* =========================
+   Buttons (white neumorphic)
+   ========================= */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: var(--btn-width);
+  height: var(--btn-height);
+  padding: 0 14px;
+
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+
+  background: var(--panel);     /* white button */
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: .2px;
+
+  box-shadow: var(--shadow-up), var(--shadow-down); /* raised */
+  transition: transform .06s ease, filter .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.btn:hover  { filter: brightness(0.98); }
+.btn:active { box-shadow: var(--inset-up), var(--inset-down); transform: translateY(0); }
+
+.btn.secondary{
+  border-color: color-mix(in oklab, var(--brand-2) 28%, var(--border));
+  color: var(--brand-2);
+}
+.btn.danger{
+  border-color: color-mix(in oklab, var(--danger) 28%, var(--border));
+  color: var(--danger);
+}
+
+/* Native controls styled like .btn */
+input[type="submit"].btn,
+button.btn{
+  width: var(--btn-width);
+  height: var(--btn-height);
+  line-height: normal;
+  padding: 0 14px;
+  background: var(--panel);
+  color: var(--ink);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-up), var(--shadow-down);
+}
+
+/* Active nav state (subtle) */
+.btn.active{
+  outline: 2px solid color-mix(in oklab, var(--brand) 25%, transparent);
+  outline-offset: 2px;
+}
+
+/* =========================
+   Filters / Inputs
+   ========================= */
+.filters{
+  display:flex; flex-wrap:wrap; gap:12px;
+  margin: 8px 0 12px;
+}
+.filters .field{
+  display:flex; flex-direction:column; gap:6px;
+  min-width: 160px;
+}
+
+input[type="text"], input[type="number"], select, textarea{
+  width:100%;
+  padding:12px 14px;
+  background: var(--panel);
+  color: var(--ink);
+  border:1px solid var(--border);
+  border-radius: var(--radius-md);
+  outline:none;
+  box-shadow: var(--inset-up), var(--inset-down);   /* subtle inset */
+  transition: box-shadow .2s, border-color .2s, background .2s;
+}
+input:focus, select:focus, textarea:focus{
+  border-color: color-mix(in oklab, var(--brand) 35%, var(--border));
+  box-shadow: 0 0 0 4px var(--ring), var(--inset-up), var(--inset-down);
+}
+
+/* =========================
+   Table (flat, airy)
+   ========================= */
+.table-wrap{
+  overflow-x:auto;
+  border-radius: var(--radius-lg);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow-up), var(--shadow-down);
+  background: var(--panel);
+}
+
+table{
+  width:100%;
+  border-collapse: separate;
+  border-spacing:0;
+  min-width: 720px;
+  background: transparent;
+}
+thead th{
+  position: sticky; top:0; z-index:1;
+  background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
+  backdrop-filter: blur(4px);
+  color: var(--muted);
+  text-align:left; font-size:12px; letter-spacing:.4px; text-transform:uppercase;
+  padding:12px; border-bottom:1px solid var(--border);
+}
+tbody td{
+  padding:14px 12px; border-bottom:1px solid var(--border);
+}
+tbody tr:nth-child(2n){
+  background: color-mix(in oklab, #000 3%, transparent);
+}
+
+/* =========================
+   Badges / Chips
+   ========================= */
+.badge{
+  display:inline-block; font-size:12px; font-weight:700;
+  padding:6px 10px;
+  border-radius: var(--radius-pill);
+  border:1px solid var(--border);
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: var(--shadow-up), var(--shadow-down);
+}
+.badge.gold{ color: #b45309; border-color: color-mix(in oklab, var(--accent) 30%, var(--border)); }
+.badge.green{ color: #166534; border-color: color-mix(in oklab, var(--brand-2) 30%, var(--border)); }
+.badge.gray{ color: #475569; }
+
+/* =========================
+   Cards
+   ========================= */
+.card{
+  background: var(--panel);
+  border:1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding:16px;
+  box-shadow: var(--shadow-up), var(--shadow-down);
+}
+
+/* =========================
+   Utilities
+   ========================= */
+.mt-2{ margin-top:8px } .mt-3{ margin-top:12px } .mt-4{ margin-top:16px }
+.mb-2{ margin-bottom:8px } .mb-3{ margin-bottom:12px } .mb-4{ margin-bottom:16px }
+.row{ display:flex; flex-wrap:wrap; gap:14px }
+.col{ flex:1 1 260px }
+
+/* =========================
+   Logo accent (subtle)
+   ========================= */
+.logo-flag{
+  display:inline-block; transform: translateY(1px);
+  background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 55%, transparent), color-mix(in oklab, var(--brand) 55%, transparent));
+  color:#0b1220; padding:4px 10px; border-radius:10px; font-weight:900;
+  box-shadow: var(--shadow-up), var(--shadow-down);
+}
+
