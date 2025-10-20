@@ -1,0 +1,39 @@
+<!-- app/views/ships/index.html.erb -->
+<div class="container">
+  <div class="panel">
+    <h1>Ships</h1>
+
+    <p class="mt-2" style="display:flex; gap:12px; flex-wrap:wrap;">
+      <%= link_to "New ship", new_ship_path, class: "btn" %>
+    </p>
+
+    <div class="table-wrap mt-3">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Crew</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @ships.each do |s| %>
+            <tr>
+              <td><%= s.name %></td>
+              <td><%= s.location %></td>
+              <td>
+                <% if s.crew %>
+                  <%= link_to s.crew.name, crew_path(s.crew), class: "badge" %>
+                <% else %>
+                  —
+                <% end %>
+              </td>
+              <td><%= link_to "Show", s, class: "btn" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
