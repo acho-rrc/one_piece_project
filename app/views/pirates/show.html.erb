@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @pirate %>
+
+<div>
+  <%= link_to "Edit this pirate", edit_pirate_path(@pirate) %> |
+  <%= link_to "Back to pirates", pirates_path %>
+
+  <%= button_to "Destroy this pirate", @pirate, method: :delete %>
+</div>
