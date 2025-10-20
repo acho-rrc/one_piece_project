@@ -1,0 +1,81 @@
+<!-- app/views/pirates/index.html.erb -->
+<%= form_with url: pirates_path, method: :get, local: true, class: "filters" do |f| %>
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <div>
+      <label>Crew</label><br>
+      <%= select_tag :crew_id,
+            options_from_collection_for_select(@crews, :id, :name, params[:crew_id]),
+            include_blank: "All crews" %>
+    </div>
+
+    <div>
+      <label>Role</label><br>
+      <%= select_tag :role,
+            options_for_select(@roles, params[:role]),
+            include_blank: "All roles" %>
+    </div>
+
+    <div>
+      <label>Devil Fruit</label><br>
+      <%= select_tag :fruit,
+            options_for_select([["Any",""],["Yes","yes"],["No","no"]], params[:fruit]) %>
+    </div>
+
+    <div>
+      <label>Min Bounty</label><br>
+      <%= number_field_tag :min_bounty, params[:min_bounty], min: 0, step: 1 %>
+    </div>
+
+    <div>
+      <label>Max Bounty</label><br>
+      <%= number_field_tag :max_bounty, params[:max_bounty], min: 0, step: 1 %>
+    </div>
+
+    <div>
+      <label>Search</label><br>
+      <%= text_field_tag :q, params[:q], placeholder: "name, fruit, role…" %>
+    </div>
+
+    <div style="align-self:flex-end;">
+      <%= submit_tag "Filter", class: "btn" %>
+      <%= link_to "Reset", pirates_path, class: "btn secondary" %>
+    </div>
+  </div>
+<% end %>
+<%= paginate @pirates %>
+
+<div class="table-wrap mt-3">
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Crew</th>
+      <th>Role</th>
+      <th>Devil Fruit</th>
+      <th>Bounty (↓)</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pirates.each do |p| %>
+      <tr>
+        <td><%= p.name %></td>
+        <td><%= p.crew.name %></td>
+        <td><%= p.role %></td>
+        <td><%= p.devil_fruit.presence || "—" %></td>
+        <td><%= number_to_currency(p.bounty, precision: 0, unit: "฿") %></td>
+        <td><%= link_to "Show", p, class: "btn" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<div class="mt-3" style="display:flex; justify-content:space-between; align-items:center;">
+  <%= paginate @pirates %>
+  <small class="muted">
+    Showing <%= @pirates.offset_value + 1 %>–
+    <%= [@pirates.offset_value + @pirates.length, @pirates.total_count].min %>
+    of <%= @pirates.total_count %>
+  </small>
+</div>
