@@ -1,0 +1,47 @@
+<%= form_with(model: pirate) do |form| %>
+  <% if pirate.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(pirate.errors.count, "error") %> prohibited this pirate from being saved:</h2>
+
+      <ul>
+        <% pirate.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :role, style: "display: block" %>
+    <%= form.text_field :role %>
+  </div>
+
+  <div>
+    <%= form.label :bounty, style: "display: block" %>
+    <%= form.text_field :bounty %>
+  </div>
+
+  <div>
+    <%= form.label :crew_id, style: "display: block" %>
+    <%= form.text_field :crew_id %>
+  </div>
+
+  <div>
+    <%= form.label :devil_fruit, style: "display: block" %>
+    <%= form.text_field :devil_fruit %>
+  </div>
+
+  <div>
+    <%= form.label :quote, style: "display: block" %>
+    <%= form.textarea :quote %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

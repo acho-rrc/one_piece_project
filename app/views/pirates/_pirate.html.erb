@@ -1,0 +1,9 @@
+<!-- app/views/pirates/_pirate.html.erb -->
+<div class="card">
+  <h2 style="margin-bottom:8px;"><%= pirate.name %></h2>
+  <p><strong>Role:</strong> <%= pirate.role %></p>
+  <p><strong>Crew:</strong> <%= pirate.crew&.name %></p>
+  <p><strong>Bounty:</strong> <%= number_to_currency(pirate.bounty, precision: 0, unit: "฿") %></p>
+  <p><strong>Devil Fruit:</strong> <%= pirate.devil_fruit.presence || "—" %></p>
+  <p><strong>Quote:</strong> <%= pirate.quote.presence || "—" %></p>
+</div>
