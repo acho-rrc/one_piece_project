@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OnePiece</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <nav class="topnav">
+      <%= link_to "One Piece", root_path, class: "topnav__brand" %>
+      <div class="topnav__links">
+        <%= link_to "Pirates", pirates_path, class: "topnav__link #{controller_name == 'pirates' ? 'is-active' : ''}" %>
+        <%= link_to "Crews", crews_path, class: "topnav__link #{controller_name == 'crews' ? 'is-active' : ''}" %>
+        <%= link_to "Ships", ships_path, class: "topnav__link #{controller_name == 'ships' ? 'is-active' : ''}" %>
+        <%= link_to "About", about_path, class: "topnav__link #{current_page?(about_path) ? 'is-active' : ''}" %>
+      </div>
+    </nav>
+
+    <%= yield %>
+  </body>
+</html>
