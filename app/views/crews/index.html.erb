@@ -1,0 +1,37 @@
+<!-- app/views/crews/index.html.erb -->
+<div class="container">
+  <div class="panel">
+    <h1>Crews</h1>
+
+    <p class="mt-2" style="display:flex; gap:12px; flex-wrap:wrap;">
+      <%= link_to "New crew", new_crew_path, class: "btn" %>
+    </p>
+
+    <div class="table-wrap mt-3">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Ship</th>  <!-- linked -->
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @crews.each do |c| %>
+            <tr>
+              <td><%= c.name %></td>
+              <td>
+                <% if c.ship %>
+                  <%= link_to c.ship.name, ship_path(c.ship), class: "badge" %>
+                <% else %>
+                  —
+                <% end %>
+              </td>
+              <td><%= link_to "Show", c, class: "btn" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
