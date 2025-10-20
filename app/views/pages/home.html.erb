@@ -1,0 +1,78 @@
+<!-- app/views/pages/home.html.erb -->
+<div class="container">
+  <div class="panel">
+    <h1>Home</h1>
+
+    <!-- Filters -->
+    <%= form_with url: root_path, method: :get, local: true, class: "filters" do %>
+      <div class="field">
+        <label>Crew</label>
+        <%= select_tag :crew_id,
+              options_from_collection_for_select(@crews, :id, :name, params[:crew_id]),
+              include_blank: "All crews" %>
+      </div>
+
+      <div class="field">
+        <label>Role</label>
+        <%= select_tag :role,
+              options_for_select(@roles, params[:role]),
+              include_blank: "All roles" %>
+      </div>
+
+      <div class="field">
+        <label>Devil Fruit</label>
+        <%= select_tag :fruit,
+              options_for_select([["Any",""],["Yes","yes"],["No","no"]], params[:fruit]) %>
+      </div>
+
+      <div class="field">
+        <label>Min Bounty</label>
+        <%= number_field_tag :min_bounty, params[:min_bounty], min: 0, step: 1 %>
+      </div>
+
+      <div class="field">
+        <label>Max Bounty</label>
+        <%= number_field_tag :max_bounty, params[:max_bounty], min: 0, step: 1 %>
+      </div>
+
+      <div class="field">
+        <label>Search</label>
+        <%= text_field_tag :q, params[:q], placeholder: "name, fruit, role…" %>
+      </div>
+
+      <div class="field" style="align-self:flex-end;">
+        <%= submit_tag "Filter", class: "btn" %>
+        <%= link_to "Reset", root_path, class: "btn secondary" %>
+      </div>
+    <% end %>
+
+    <!-- Table (same structure/look as Ships/Crews pages) -->
+    <div class="table-wrap mt-3">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Crew</th>
+            <th>Role</th>
+            <th>Devil Fruit</th>
+            <th>Bounty</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @pirates.each do |p| %>
+            <tr>
+              <td><%= p.name %></td>
+              <td><%= p.crew ? link_to(p.crew.name, p.crew, class: "badge") : "—" %></td>
+              <td><span class="badge gray"><%= p.role %></span></td>
+              <td><%= p.devil_fruit.presence || "—" %></td>
+              <td><span class="badge gold"><%= number_to_currency(p.bounty, precision: 0, unit: "฿") %></span></td>
+              <td><%= link_to "Show", p, class: "btn" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
